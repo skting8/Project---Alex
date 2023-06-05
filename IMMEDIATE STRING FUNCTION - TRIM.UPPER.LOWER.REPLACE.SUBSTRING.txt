@@ -1,0 +1,44 @@
+CREATE TABLE EMPLOYEE_ERR (
+EMPID VARCHAR (50),
+FIRSTNAME VARCHAR (50),
+LASTNAME VARCHAR (50),
+)
+
+INSERT INTO EMPLOYEE_ERR VALUES
+( ' 1001', 'JIMBo', 'Henry' ),
+( '1002     ', '    Mary', 'beAst' ),
+( ' 10033', 'tOby   ', 'Flenderson - Fired' )
+
+select * from EMPLOYEE_ERR
+
+/* ======================================================
+-- USING TRIM,LTRIM,RTRIM 
+-- USE TO TRIM EMPID 
+*  ========================================================
+
+SELECT EMPID ,TRIM(empid) as trimID FROM EMPLOYEE_ERR
+SELECT EMPID ,LTRIM(empid) as trimID FROM EMPLOYEE_ERR
+SELECT EMPID ,rTRIM(empid) as trimID FROM EMPLOYEE_ERR
+	
+
+/* ======================================================
+-- USING REPLACE . REPLACE({field},{condition},{result}
+-- USE TO REPLACE
+*  ========================================================
+
+SELECT lastname,REPLACE(lastname, ' - Fired',' ') as LastFixed FROM EMPLOYEE_ERR
+
+
+/* ======================================================
+-- USING SUBSTRING . SUNSTRING({field},{start},{no. character}
+*  ========================================================
+
+
+ select firstname,SUBSTRING(firstname,3,3) from EMPLOYEE_err
+
+/* ======================================================
+   USING UPPER,LOWER
+*  ========================================================
+
+SELECT FIRSTNAME,UPPER(FIRSTNAME) AS FNAME,LASTNAME,LOWER(LASTNAME) AS LNAME FROM EMPLOYEE_ERR
+

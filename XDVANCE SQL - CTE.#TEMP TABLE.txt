@@ -1,0 +1,40 @@
+/* ============================================
+   CTE - SOMETHING LIKE SUB QUERY - WITH declaration AS ( SELECT .... ) 
+   ============================================*/
+
+WITH CTE_EMPLOYEE AS (
+SELECT FIRSTNAME,LASTNAME, GENDER,SALARY, 
+count(GENDER) over (partition by gender) as TotalGender, 
+AVG(SALARY) over (partition by gender) as AvgSalary
+FROM EMPLOYEE_DEMO dem INNER JOIN EMPLOYEE_SALARY sal 
+ON dem.EMP_ID = sal.EMP_ID
+WHERE SALARY > 3500
+)
+
+SELECT FIRSTNAME,AvgSalary FROM CTE_EMPLOYEE
+
+/* ============================================
+   #TEMP TABLE - STORING AS TEMP TABLE TO USE MULTIPLE TIMES
+   ============================================*/
+
+DROP TABLE IF EXISTS #temp_employee2
+CREATE TABLE #temp_employee2 (
+Job VARCHAR (50),
+EmployeePerID int,
+AvgAge int,
+AvgSalary int
+)
+
+insert into #temp_employee2
+SELECT JOB_TITLE,count(job_title), Avg(Age),Avg(salary)
+FROM EMPLOYEE_DEMO dem INNER JOIN EMPLOYEE_SALARY sal 
+ON dem.EMP_ID = sal.EMP_ID
+group by JOB_TITLE 
+
+select * from #temp_employee2
+
+/* ============================================
+   #DROP TABLE IF EXISTS
+   ============================================*/
+
+DROP TABLE IF EXISTS #temp_employee2
